@@ -1,10 +1,13 @@
-///// STEP.1 Create the variables and question & answer lists.
+///// STEP.1 create the variables and question & answer lists.
 // define variables
-var correctAnswer = 0
-var incorrectAnswer = 0
-var timeRemaining = 30
-var listNumber = 0
-
+var NOfcorrectAnswer = 0
+var NOfincorrectAnswer = 0
+var timeRemaining = 5
+var intervalId;
+var currentQNumber = 1
+var answerArray = []
+var correctAnswer = ""
+var incorrectAnswer = []
 
 // question & answer lists in object form
 // Always put the the correct answer at the first element in array.
@@ -32,30 +35,33 @@ var QnA = {
 }
 
 
-///// STEP2. Time Remaining
-// timeRemaing is decreased by 1 every 1 second
-
-///// STEP3. Show the question and answers
+///// STEP2. display the question and answers
 // function to display question at key:number'i'
-function nextQuestion(i) {
+function nextQuestion() {
     // define var numberI to use it as an object key
-    var numberI = "number" + i
+    var numberI = "number" + currentQNumber
 
     // bring question at key:number'i'
     var question = QnA[numberI].question
     console.log(question)
 
-    // update it in html <div id="question">
+    // empty all div & update it in html <div id="question">
+    $("#time").empty()
+    $("#question").empty()
+    $("#answer").empty()
     $("#question").html(question)
+
+    // currentQNumber++
+    currentQNumber++
 }
 
 // function to mix answers at key:number'i' & display them
-function mixAnswer(i) {
+function mixAnswer() {
     // define var numberI to use it as an object key
-    var numberI = "number" + i
+    var numberI = "number" + currentQNumber
 
     // bring answer array at key:number'i'
-    var answerArray = QnA[numberI].answer
+    answerArray = QnA[numberI].answer
     console.log("original answer array:" + answerArray)
 
     // create new random number array between 0 - answerArray.length
@@ -78,22 +84,78 @@ function mixAnswer(i) {
     console.log("mixed answer array: " + mixedAnswerArray)
 
     // update it in html <div id="answer">
-    for (var j = 0; j< mixedAnswerArray.length; j++) {
+    for (var j = 0; j < mixedAnswerArray.length; j++) {
         var newDiv = $("<div>").text(mixedAnswerArray[j])
-        newDiv.attr("data-value",mixedAnswerArray[j])
+        newDiv.attr("data-value", mixedAnswerArray[j])
         $("#answer").append(newDiv)
+    }
+
+    // function to assign correct and incorrect answer
+    correctAnswer = answerArray[0]
+    for (var j = 1; j < answerArray.length; j++) {
+        incorrectAnswer.push(answerArray[j])
+    }
+    console.log("correct answer: " + correctAnswer)
+    console.log("incorrect answer: " + incorrectAnswer)
+}
+
+
+
+// combine above two function
+function newQnA() {
+    nextQuestion()
+    mixAnswer()
+}
+
+newQnA()
+
+
+
+///// STEP3. timer set
+// function to decreased timeRemaining by 1 and display it in html
+function timeDecrease() {
+    timeRemaining--
+    console.log("time remaing :" + timeRemaining)
+    $("#time").text("Time Remaining: " + timeRemaining + " seconds")
+
+    //if timeRemaining === 0, execute runOutTime()
+    if (timeRemaining === 0) {
+        runOutTime()
     }
 }
 
-// combine above two function
-function newQnA (i) {
-    nextQuestion(i)
-    mixAnswer(i)
+// function to reset timeRemaining=30 & execute timeDecrease function every 1 second
+function startTimer() {
+    timeRemaining = 5
+    $("#time").text("Time Remaining: " + timeRemaining + " seconds")
+    intervalId = setInterval(timeDecrease, 1000)
 }
 
-newQnA(5)
+// function if user runs out of time 
+function runOutTime() {
+    // stop timer (clear interval)
+    clearInterval(intervalId)
 
-///// STEP4. if uswer runs out of time -> incorrectAnswer++, tell the player that time's up & display the correct answer, show next question after a few seconds.
-///// STEP4. if user click correct answer -> correctAnswer++, show a screen congratulating, show next question after a few seconds
-///// STEP5. if user click wrong answer, incorrectAnswer++, display the correct answer & show next question after a few seconds.
+    // NOfincorrectAnswer++
+    NOfincorrectAnswer++
+
+    // tell the player that time's up & display the correct answer
+    $("#time").empty()
+    $("#question").empty()
+    $("#answer").empty()
+    $("#answer").html("Time's up!" + "<br>" + "The correct answer is " + correctAnswer + ".")
+
+    //show next question & start timer after a few seconds 
+    setTimeout(newQnA, 1000 * 3)
+    setTimeout(startTimer, 1000 * 3)
+}
+
+startTimer()
+
+///// STEP4. if user click correct answer,
+//correctAnswer++, show a screen congratulating, show next question after a few seconds
+
+///// STEP5. if user click wrong answer
+//incorrectAnswer++, display the correct answer & show next question after a few seconds.
+
 ///// STEP6. on the final screen, show the number of correct answer, incorrect answer, and restart button.
