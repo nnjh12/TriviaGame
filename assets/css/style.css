@@ -1,0 +1,29 @@
+body {
+    background-image:url(../images/pexels-photo-1552620.jpeg);
+    background-position: center top;
+    background-size: 100% auto;
+    background-repeat:repeat;
+    box-sizing: border-box;
+
+}
+.jumbotron {
+    background: rgba(255,255,255, 0.96);
+    margin: auto;
+
+}
+
+.display-4 {
+    font-size: 50px;
+}
+
+#time {
+    font-size: 18px;
+
+}
+
+#time,
+#comment {
+    font-size: 20px;
+}
+
+

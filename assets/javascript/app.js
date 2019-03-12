@@ -47,7 +47,7 @@ function nextQnA() {
     // if numberI is valid key in object QnA,
     if (objectKey.indexOf(numberI) !== -1) {
         // remove start button
-        $("#game_menu").empty()
+        $(".start_screen").empty()
 
         // start timer
         startTimer()
@@ -115,7 +115,8 @@ function mixAnswer() {
     // update it in html <div id="answer">
     for (var j = 0; j < mixedAnswerArray.length; j++) {
         var newDiv = $("<button>").text(mixedAnswerArray[j])
-        newDiv.attr("class", "answer_button")
+        newDiv.attr("class", "answer_button btn btn-outline-dark mr-2 mb-3")
+        newDiv.attr("type", "button")
         newDiv.attr("data_value", mixedAnswerArray[j])
         $("#answer").append(newDiv)
     }
@@ -155,10 +156,10 @@ function runOutTime() {
     console.log("NOfincorrectAnswer :" + NOfincorrectAnswer)
 
     // tell the player that time's up & display the correct answer
-    $("#time").empty()
-    $("#question").empty()
+    $("#time").html("Time's up!")
+    // $("#question").empty()
     $("#answer").empty()
-    $("#comment").html("Time's up!" + "<br>" + "The correct answer is " + correctAnswer + ".")
+    $("#comment").html("The correct answer is " + correctAnswer + ".")
 
     // show next question & start timer after a few seconds 
     setTimeout(nextQnA, 1000 * 3)
@@ -194,10 +195,10 @@ function selectCorrectAnswer() {
     console.log("NOfCorrectAnswer :" + NOfcorrectAnswer)
 
     // show a screen congratulating
-    $("#time").empty()
-    $("#question").empty()
+    $("#time").html("Yay!")
+    // $("#question").empty()
     $("#answer").empty()
-    $("#comment").html("Congratulation!" + "<br>" + "You selected correct answer!")
+    $("#comment").html("You selected correct answer!")
 
     // show next question after a few seconds
     setTimeout(nextQnA, 1000 * 3)
@@ -213,10 +214,10 @@ function selectIncorrectAnswer() {
     console.log("NOfincorrectAnswer :" + NOfincorrectAnswer)
 
     // tell the player that time's up & display the correct answer
-    $("#time").empty()
-    $("#question").empty()
+    $("#time").html("Uh-oh")
+    // $("#question").empty()
     $("#answer").empty()
-    $("#comment").html("You picked wrong answer." + "<br>" + "The correct answer is " + correctAnswer + ".")
+    $("#comment").html("The correct answer is " + correctAnswer + ".")
 
     // show next question & start timer after a few seconds 
     setTimeout(nextQnA, 1000 * 3)
@@ -229,14 +230,20 @@ function finalScreen() {
     // empty all div
     $("#time").empty()
     $("#question").empty()
-    $("#answer").empty()
+    $("#answer").html("<hr>").attr("class", "my-4")
     $("#comment").empty()
+
+    $("#question").html("Your Score")
+
 
     // create nwe div & append them in #comment div
     var newDiv1 = $("<div>").text("Number of correct Answer: " + NOfcorrectAnswer)
     var newDiv2 = $("<div>").text("Number of incorrect Answer: " + NOfincorrectAnswer)
-    var newDiv3 = $("<button>").text("Restart").attr("id", "restart_button")
-
+    var newDiv3 = $("<button>").text("Restart")
+    newDiv3.attr("id", "restart_button")
+    newDiv3.attr("type", "button")
+    newDiv3.attr("class", "btn btn-outline-primary mt-3 mb-2")
+    
     $("#comment").append(newDiv1, newDiv2, newDiv3)
 }
 
