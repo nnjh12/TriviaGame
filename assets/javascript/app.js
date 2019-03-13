@@ -2,7 +2,7 @@
 /// 1-1. define variables
 var NOfcorrectAnswer = 0
 var NOfincorrectAnswer = 0
-var timeRemaining = 5
+var timeRemaining = 10
 var intervalId;
 var currentQNumber = 1
 var answerArray = []
@@ -20,7 +20,7 @@ var QnA = {
         answer: ["5", "4", "6", "7"]
     },
     number3: {
-        question: "What is the oldest Tennis tournament in the world?",
+        question: "What is the oldest tennis tournament in the world?",
         answer: ["Wimbledon", "U.S. Open", "French Open", "Australian Open"]
     },
     number4: {
@@ -112,6 +112,9 @@ function mixAnswer() {
     }
     console.log("mixed answer array: " + mixedAnswerArray)
 
+    // empty answer div
+    $("#answer").empty()
+
     // update it in html <div id="answer">
     for (var j = 0; j < mixedAnswerArray.length; j++) {
         var newDiv = $("<button>").text(mixedAnswerArray[j])
@@ -128,9 +131,9 @@ function mixAnswer() {
 
 
 ///// STEP3. Timer set
-/// 3-1. function to reset timeRemaining=30 & execute timeDecrease function every 1 second
+/// 3-1. function to reset timeRemaining=10 & execute timeDecrease function every 1 second
 function startTimer() {
-    timeRemaining = 5
+    timeRemaining = 10
     $("#time").text("Time Remaining: " + timeRemaining + " seconds")
     intervalId = setInterval(timeDecrease, 1000)
 }
@@ -162,7 +165,7 @@ function runOutTime() {
     $("#comment").html("The correct answer is " + correctAnswer + ".")
 
     // show next question & start timer after a few seconds 
-    setTimeout(nextQnA, 1000 * 3)
+    setTimeout(nextQnA, 1000 * 2)
 }
 
 
@@ -201,7 +204,7 @@ function selectCorrectAnswer() {
     $("#comment").html("You selected correct answer!")
 
     // show next question after a few seconds
-    setTimeout(nextQnA, 1000 * 3)
+    setTimeout(nextQnA, 1000 * 2)
 }
 
 /// 4-4. if user select incorrect answer,
@@ -220,7 +223,7 @@ function selectIncorrectAnswer() {
     $("#comment").html("The correct answer is " + correctAnswer + ".")
 
     // show next question & start timer after a few seconds 
-    setTimeout(nextQnA, 1000 * 3)
+    setTimeout(nextQnA, 1000 * 2)
 }
 
 
@@ -243,7 +246,7 @@ function finalScreen() {
     newDiv3.attr("id", "restart_button")
     newDiv3.attr("type", "button")
     newDiv3.attr("class", "btn btn-outline-primary mt-3 mb-2")
-    
+
     $("#comment").append(newDiv1, newDiv2, newDiv3)
 }
 
