@@ -8,4 +8,4 @@ Developed a sports trivia game using HTML, JavaScript, and CSS.
 ## Play the game now!
 [Go to the game](https://nnjh12.github.io/TriviaGame/)</br>
 </br>
-![preview](./assets/preview.png)
+[![preview](./assets/preview.png)](https://nnjh12.github.io/TriviaGame/)
