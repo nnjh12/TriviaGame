@@ -6,5 +6,6 @@ Developed a sports trivia game using HTML, JavaScript, and CSS.
 - Try to answer each question before the countdown runs out!
 
 ## Play the game now!
-[Go to the game](https://nnjh12.github.io/TriviaGame/)
+[Go to the game](https://nnjh12.github.io/TriviaGame/)</br>
+</br>
 ![preview](./assets/preview.png)
